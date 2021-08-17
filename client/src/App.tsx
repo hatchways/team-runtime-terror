@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import { AuthProvider } from './context/useAuthContext';
 import { SocketProvider } from './context/useSocketContext';
 import { SnackBarProvider } from './context/useSnackbarContext';
+import Notification from './components/Notification/Notification';
 
 import './App.css';
 
@@ -22,6 +23,9 @@ function App(): JSX.Element {
                 <Route exact path="/signup" component={Signup} />
                 <Route exact path="/dashboard">
                   <Dashboard />
+                </Route>
+                <Route exact path="/notification">
+                  <Notification />
                 </Route>
                 <Route path="*">
                   <Redirect to="/login" />
