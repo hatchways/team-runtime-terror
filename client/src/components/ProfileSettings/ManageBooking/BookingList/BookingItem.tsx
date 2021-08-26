@@ -1,37 +1,76 @@
-import { Grid, Avatar } from '@material-ui/core';
+import { useState } from 'react';
+import { Grid, Avatar, Menu, Button } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import SettingsIcon from '@material-ui/icons/Settings';
 import useStyles from './useStyles';
-import { useAuth } from '../../../../context/useAuthContext';
-
+import { handleAcceptHelper, handleDeclineHelper } from '../../../../helpers/APICalls/manageBooking';
 interface Props {
   status: string;
-  date: string;
-  imageSrc: string;
-  ownerName: string;
+  bookingDate: string;
+  imgUrl: string;
+  userName: string;
+  startTime: string;
+  endTime: string;
+  category: string;
+  index: number;
 }
 
-const BookingItem = ({ status, date, imageSrc, ownerName }: Props): JSX.Element => {
+const BookingItem = ({
+  status,
+  bookingDate,
+  imgUrl,
+  userName,
+  startTime,
+  endTime,
+  index,
+  category,
+}: Props): JSX.Element => {
   const classes = useStyles();
-  const { loggedInUser } = useAuth();
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const handleAccept = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(null);
+    await handleAcceptHelper('ACCEPTED', category, index);
+  };
+  const handleDecline = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(null);
+    await handleDeclineHelper('DECLINED', category, index);
+  };
+
   return (
     <Paper elevation={3} className={classes.internalPaper}>
       <Grid container spacing={2} className={classes.internalGrid}>
         <Grid item xs container direction="column" spacing={2}>
           <Grid item xs>
             <Typography variant="body2" gutterBottom>
-              {date}
+              {bookingDate.slice(0, 10)} {startTime} - {endTime}
             </Typography>
           </Grid>
           <Grid item className={classes.avatarGrid}>
-            <Avatar alt="Profile Image" src={imageSrc} variant="circle" className={classes.photoAvatar} />
-            <Typography className={classes.userName}>{ownerName}</Typography>
+            <Avatar alt="Profile Image" src={imgUrl} variant="circular" className={classes.photoAvatar} />
+            <Typography className={classes.userName}>{userName}</Typography>
           </Grid>
         </Grid>
-        <Grid item className={classes.statusGrid} alignContent="center">
+        <Grid item className={classes.statusGrid}>
           <Typography className={classes.status}>{status}</Typography>
-          <SettingsIcon color="disabled" />
+          <Button
+            aria-controls="simple-menu"
+            aria-haspopup="true"
+            onClick={(event) => setAnchorEl(event.currentTarget)}
+          >
+            <SettingsIcon />
+          </Button>
+          <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={() => setAnchorEl(null)}
+          >
+            <Button onClick={(event) => handleAccept(event)}>Accept</Button>
+            <Button onClick={(event) => handleDecline(event)}>Decline</Button>
+          </Menu>
         </Grid>
       </Grid>
     </Paper>

@@ -7,6 +7,7 @@ const {
   listAllProfiles,
   updateProfile,
   uploadImage,
+  manageBooking,
 } = require("../controllers/profile");
 
 router.route("/create").post(createProfile);
@@ -18,5 +19,7 @@ router.route("/list").get(protect, listAllProfiles);
 router.route("/update").post(protect, updateProfile);
 
 router.route("/profile-photo").post(uploadImage);
+
+router.route("/manage-booking").post(manageBooking);
 
 module.exports = router;

@@ -1,4 +1,5 @@
 const Profile = require("../models/Profile");
+const User = require("../models/User");
 const asyncHandler = require("express-async-handler");
 const generateToken = require("../utils/generateToken");
 const multer = require("multer");
@@ -213,3 +214,53 @@ exports.uploadImage =
       return res.status(500).send(err);
     }
   });
+
+exports.manageBooking = asyncHandler(async (req, res, next) => {
+  const incomingUserInfo = JSON.stringify(req.body);
+  const slicedString = incomingUserInfo.slice(1, -4);
+  const userData = JSON.parse(JSON.parse(slicedString));
+  if (userData.status) {
+    res.send("Status submitted to server");
+  } else {
+    let user = await User.findOne({ email: userData.email }, function (err) {
+      if (err) {
+        res.status(404).send("User not found!!");
+      }
+    });
+
+    const firstBooking = {
+      userName: userData.username,
+      status: "ACCEPTED",
+      imgUrl: `https://robohash.org/${userData.email}.png`,
+      bookingDate: new Date(),
+      startTime: new Date().toLocaleString("en-US", {
+        hour: "numeric",
+        hour12: true,
+      }),
+      endTime: new Date().toLocaleString("en-US", {
+        hour: "numeric",
+        hour12: true,
+      }),
+    };
+    if (user.booking.length === 0) {
+      user = await User.findOneAndUpdate(
+        { email: userData.email },
+        { booking: [...user.booking, firstBooking] },
+        function (err) {
+          if (err) {
+            res.status(404).send("User not found!!");
+          }
+        }
+      );
+    }
+    user = await User.findOne({ email: userData.email }, function (err) {
+      if (err) {
+        res.status(404).send("User not found!!");
+      }
+    });
+
+    // three arrays are for nextBooking, currentBooking and pastBooking
+    // will be tested with real request
+    res.json([user.booking, user.booking, user.booking]);
+  }
+});
