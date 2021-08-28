@@ -110,14 +110,14 @@ const ProfileDetails = (): JSX.Element => {
                     <form>
                       <Box p={4}>
                         <Box>
-                          <Typography variant="caption" align="left">
-                            DROP IN
+                          <Typography variant="caption" align="left" style={{ textTransform: 'uppercase' }}>
+                            drop in
                           </Typography>
                           <TextField id="datetime-dropin" type="datetime-local" className={classes.dateInput} />
                         </Box>
                         <Box mt={2}>
-                          <Typography variant="caption" align="left">
-                            DROP OFF
+                          <Typography variant="caption" align="left" style={{ textTransform: 'uppercase' }}>
+                            drop off
                           </Typography>
                           <TextField id="datetime-dropoff" type="datetime-local" className={classes.dateInput} />
                         </Box>
