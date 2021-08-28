@@ -1,13 +1,6 @@
 import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
-/* import FormGroup from '@material-ui/core/FormGroup';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox, { CheckboxProps } from '@material-ui/core/Checkbox';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select'; */
 import {
   Box,
   Select,
@@ -16,6 +9,8 @@ import {
   Checkbox,
   FormControlLabel,
   TextField,
+  Grid,
+  Container,
   FormGroup,
 } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
@@ -76,6 +71,7 @@ const Availability = (): JSX.Element => {
     });
   };
   const handleSubmit = () => {
+    console.log('**********************');
     console.log(startDate, endDate, rate.dollar, state);
   };
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,8 +79,8 @@ const Availability = (): JSX.Element => {
   };
 
   return (
-    <FormGroup>
-      <Box className={classes.box} m={2} p={2}>
+    <FormControl>
+      <Box className={classes.box} m={1} p={1}>
         <FormControlLabel
           control={<Checkbox checked={state.monday} onChange={handleChange} name="monday" color="primary" />}
           label="Monday"
@@ -115,7 +111,7 @@ const Availability = (): JSX.Element => {
         />
       </Box>
 
-      <Box className={classes.box} m={1} p={2}>
+      <Box className={classes.box} m={1} p={1}>
         <TextField
           id="date"
           label="Start Date"
@@ -164,10 +160,10 @@ const Availability = (): JSX.Element => {
           </Select>
         </FormControl>
       </Box>
-      <Button color="secondary" className={classes.submit} variant="contained" onClick={handleSubmit}>
+      <Button color="secondary" className={classes.submit} variant="contained" type="submit" onClick={handleSubmit}>
         Submit
       </Button>
-    </FormGroup>
+    </FormControl>
   );
 };
 
