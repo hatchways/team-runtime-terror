@@ -61,20 +61,19 @@ const Payment = (): JSX.Element => {
           </Grid>
         </Grid>
         <CardActions>
-          
           <Button
-              variant="outlined"
-              onClick={handleClickOpen}
-              fullWidth
-              className={classes.cardButton}
-              classes={{
-                root: classes.buttonRoot,
-              }}
-            >
-              Add new payment profile
-            </Button>
-         
-            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+            variant="outlined"
+            onClick={handleClickOpen}
+            fullWidth
+            className={classes.cardButton}
+            classes={{
+              root: classes.buttonRoot,
+            }}
+          >
+            Add new payment profile
+          </Button>
+
+          <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
             <form className={classes.form} onSubmit={handleSubmit}>
               <DialogTitle id="form-dialog-title">Credit Card Details</DialogTitle>
               <DialogContent>
@@ -102,9 +101,8 @@ const Payment = (): JSX.Element => {
                   Cancel
                 </Button>
               </DialogActions>
-              </form>
-            </Dialog>
-         
+            </form>
+          </Dialog>
         </CardActions>
       </Card>
     </Paper>

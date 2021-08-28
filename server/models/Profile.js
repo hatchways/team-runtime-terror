@@ -1,18 +1,23 @@
 const mongoose = require("mongoose");
-
 const Schema = mongoose.Schema;
+
 const profileSchema = new Schema({
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
   firstName: {
     type: String,
-    required: true,
+    required: false,
   },
   lastName: {
     type: String,
-    required: true,
+    required: false,
   },
   phoneNumber: {
     type: String,
-    required: true,
+    required: false,
   },
   email: {
     type: String,
@@ -20,13 +25,17 @@ const profileSchema = new Schema({
     unique: true,
     required: true,
   },
-  description: {
+  userType: {
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+    required: false,
+  },
   filePath: {
     type: String,
-    required: true,
+    required: false,
     unique: true,
   },
   availability: new Schema({
@@ -40,6 +49,7 @@ const profileSchema = new Schema({
       default: Date,
       required: false,
     },
+
     daysOfWeek: [{ type: String }],
   }),
 });

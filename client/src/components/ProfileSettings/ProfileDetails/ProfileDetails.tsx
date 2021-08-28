@@ -20,7 +20,7 @@ import profimg from '../../../Images/profimg.jpg';
 import doggo from '../../../Images/dog1.jpg';
 import doggo1 from '../../../Images/dog2.jpg';
 import { useState, useEffect } from 'react';
-import getProfileDetails from '../../../helpers/APICalls/profile';
+import { getProfileDetails } from '../../../helpers/APICalls/profile';
 import { useAuth } from '../../../context/useAuthContext';
 import Loading from '../../Layout/Loading';
 import { Profile } from '../../../interface/Profile';
@@ -110,14 +110,14 @@ const ProfileDetails = (): JSX.Element => {
                     <form>
                       <Box p={4}>
                         <Box>
-                          <Typography variant="caption" align="left">
-                            DROP IN
+                          <Typography variant="caption" align="left" style={{ textTransform: 'uppercase' }}>
+                            drop in
                           </Typography>
                           <TextField id="datetime-dropin" type="datetime-local" className={classes.dateInput} />
                         </Box>
                         <Box mt={2}>
-                          <Typography variant="caption" align="left">
-                            DROP OFF
+                          <Typography variant="caption" align="left" style={{ textTransform: 'uppercase' }}>
+                            drop off
                           </Typography>
                           <TextField id="datetime-dropoff" type="datetime-local" className={classes.dateInput} />
                         </Box>
