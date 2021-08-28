@@ -17,7 +17,7 @@ const jwt = require("jsonwebtoken");
 const cookie = require("cookie");
 
 // Require all models
-var dataSchema = require("./models/index");
+const dataSchema = require("./models/index");
 
 const { json, urlencoded } = express;
 
