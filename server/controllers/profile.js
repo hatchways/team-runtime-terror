@@ -34,18 +34,6 @@ const uploadS3 = multer({
 // @access Private
 
 exports.createProfile = asyncHandler(async (req, res, next) => {
-  console.log(req.body);
-  const new_obj = Object.assign(
-    {
-      availability: {
-        startDate: "2012-04-23T18:25:43.511Z",
-        endDate: "2012-04-23T18:25:43.511Z",
-        daysOfWeek: ["Saturday", "Monday"],
-      },
-    },
-    req.body
-  );
-  console.log(new_obj);
   const {
     firstName,
     lastName,
@@ -53,7 +41,7 @@ exports.createProfile = asyncHandler(async (req, res, next) => {
     email,
     phoneNumber,
     availability: { startDate, endDate, daysOfWeek },
-  } = new_obj;
+  } = req.query;
 
   const profile = await Profile.create({
     firstName,
@@ -64,7 +52,7 @@ exports.createProfile = asyncHandler(async (req, res, next) => {
     availability: {
       startDate,
       endDate,
-      daysOfWeek,
+      daysOfWeek: [],
     },
   });
 
