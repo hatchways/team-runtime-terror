@@ -13,6 +13,7 @@ exports.sendMessage = asyncHandler(async (req, res, next) => {
       } else {
         const message = await Message.create({
           conversationId,
+          senderId,
           messageText,
         });
 
@@ -26,14 +27,15 @@ exports.sendMessage = asyncHandler(async (req, res, next) => {
     });
   } else {
     const conversation = await Conversation.create({
-      recipientId,
-      senderId,
+      user1Id: senderId,
+      user2Id: recipientId,
     });
 
     const convoId = conversation._id;
 
     const message = await Message.create({
       conversationId: convoId,
+      senderId,
       messageText,
     });
 

@@ -3,7 +3,13 @@ const Schema = mongoose.Schema;
 
 const messageSchema = mongoose.Schema({
   conversationId: {
-    type: [{ type: Schema.Types.ObjectId, ref: "Conversation" }],
+    type: Schema.Types.ObjectId,
+    ref: "Conversation",
+    required: true,
+  },
+  senderId: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
     required: true,
   },
   messageText: {
@@ -14,6 +20,10 @@ const messageSchema = mongoose.Schema({
     type: Boolean,
     default: false,
     required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now(),
   },
 });
 
