@@ -25,7 +25,19 @@ const profileSchema = new Schema({
     unique: true,
     required: true,
   },
-  userType: {
+  description: {
+    type: String,
+  },
+  address: {
+    type: String,
+  },
+  gender: {
+    type: String,
+  },
+  birthDate: {
+    type: Date,
+  },
+   userType: {
     type: String,
     required: true,
   },
@@ -38,20 +50,10 @@ const profileSchema = new Schema({
     required: false,
     unique: true,
   },
-  availability: new Schema({
-    startDate: {
-      type: Date,
-      default: Date.now,
-      required: false,
-    },
-    endDate: {
-      type: Date,
-      default: Date,
-      required: false,
-    },
-
-    daysOfWeek: [{ type: String }],
-  }),
+  availability: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Availability",
+  },
 });
 
 module.exports = Profile = mongoose.model("profile", profileSchema);

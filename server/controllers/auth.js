@@ -1,6 +1,8 @@
 const User = require("../models/User");
+const Profile = require("../models/Profile");
 const asyncHandler = require("express-async-handler");
 const generateToken = require("../utils/generateToken");
+const { ObjectID } = require("mongodb");
 
 // @route POST /auth/register
 // @desc Register user

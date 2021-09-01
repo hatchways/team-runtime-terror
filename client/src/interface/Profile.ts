@@ -1,8 +1,11 @@
-export interface Profile {
+
+export interface IFormInitialValues {
   firstName: string;
   lastName: string;
-  phoneNumber: string;
   email: string;
+  birthDate: string;
+  address: string;
+  phoneNumber: string;
   description: string;
-  availability?: [];
+  gender: string;
 }
