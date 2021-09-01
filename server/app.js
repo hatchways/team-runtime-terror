@@ -13,11 +13,14 @@ const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
 const requestRouter = require("./routes/request");
 const profileRouter = require("./routes/profile");
+const notificationRouter = require("./routes/notification");
 const jwt = require("jsonwebtoken");
 const cookie = require("cookie");
+const messageRouter = require("./routes/message");
+const conversationRouter = require("./routes/conversation");
 
 // Require all models
-const dataSchema = require("./models/index");
+var dataSchema = require("./models");
 
 const { json, urlencoded } = express;
 
@@ -73,6 +76,9 @@ app.use((req, res, next) => {
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
 app.use("/requests", requestRouter);
+app.use("/notification", notificationRouter);
+app.use("/messages", messageRouter);
+app.use("/conversations", conversationRouter);
 app.use("/profile", profileRouter);
 
 if (process.env.NODE_ENV === "production") {
