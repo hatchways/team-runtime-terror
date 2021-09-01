@@ -33,17 +33,6 @@ const profileSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Availability",
   },
-  /* availability: new Schema({
-    startDate: {
-      type: Date,
-      default: Date.now,
-    },
-    endDate: {
-      type: Date,
-      default: Date,
-    },
-    daysOfWeek: [{ type: String }],
-  }), */
 });
 
 module.exports = Profile = mongoose.model("profile", profileSchema);

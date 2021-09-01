@@ -2,7 +2,10 @@ const express = require("express");
 const router = express.Router();
 const protect = require("../middleware/auth");
 
-const { updateA, fetchAvailability } = require("../controllers/availability");
+const {
+  updateAvailability,
+  fetchAvailability,
+} = require("../controllers/availability");
 
 router.route("/update").post(protect, updateA);
 

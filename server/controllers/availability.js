@@ -1,9 +1,8 @@
 const Availability = require("../models/Availability");
 const asyncHandler = require("express-async-handler");
 const generateToken = require("../utils/generateToken");
-console.log("in controller");
 
-exports.updateA = asyncHandler(async (req, res, next) => {
+exports.updateAvailability = asyncHandler(async (req, res, next) => {
   const filtered = Object.entries(req.body.daysOfWeek).filter(
     ([key, value]) => value === true
   );
@@ -48,6 +47,6 @@ exports.fetchAvailability = asyncHandler(async (req, res, next) => {
   if (availabilityData) {
     res.status(200).json(availabilityData);
   } else {
-    res.status(404).send("something went wrong");
+    res.status(500).send("Internal Server Error!");
   }
 });
