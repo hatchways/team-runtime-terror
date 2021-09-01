@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import 'date-fns';
 import {
   Box,
   Select,
@@ -8,44 +10,19 @@ import {
   FormControlLabel,
   TextField,
   Grid,
-  Container,
-  FormGroup,
+  Typography,
+  Button,
   Paper,
 } from '@material-ui/core';
-import { Typography } from '@material-ui/core';
-import { Button } from '@material-ui/core';
 import useStyles from './useStyles';
 import { FetchOptions } from '../../../interface/FetchOptions';
-/* import handleSubmit from '../../../helpers/APICalls/availability';
-import {IAvailability} from '../../../interface/Availability' */
-import axios from 'axios';
 import { useAuth } from '../../../context/useAuthContext';
-import { IAvailability } from '../../../interface/Availability';
-import { strict } from 'assert';
-import 'date-fns';
-
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
 
 const Availability = (): JSX.Element => {
   const classes = useStyles();
   const { loggedInUser } = useAuth();
-  /*   const [profileData, setprofileData] = useState<IAvailability>({
-                                            email: loggedInUser!.email,
-                                            startDate: '',
-                                            endDate: '',
-                                            daysOfWeek:{
-                                              monday: false,
-                                              tuesday: false,
-                                              wednesday: false,
-                                              thursday: false,
-                                              friday: false,
-                                              saturday: false,
-                                              sunday: false,
-                                            },
-                                            rate: '',
-                                            }); */
-
   const [daysOfWeek, setDaysOfWeek] = React.useState({
     monday: false,
     tuesday: false,
@@ -86,6 +63,7 @@ const Availability = (): JSX.Element => {
   const handleStartDateChange = (date: Date | null) => {
     setStartDate(date);
   };
+
   const handleEndDateChange = (date: Date | null) => {
     setEndDate(date);
   };
@@ -127,6 +105,47 @@ const Availability = (): JSX.Element => {
         <Typography className={classes.heading} component="h1" variant="h5">
           Availability
         </Typography>
+      </Box>
+      <Box className={classes.box} m={1} p={1}>
+        <Box p={1}>
+          <Typography className={classes.typo} component="h1" variant="h6">
+            Availability Timeline
+          </Typography>
+        </Box>
+        <Paper className={classes.paper} elevation={1}>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <Grid container>
+              <KeyboardDatePicker
+                className={classes.date}
+                disableToolbar
+                variant="inline"
+                format="MM/dd/yyyy"
+                margin="normal"
+                id="date-picker-inline"
+                label="Date picker inline"
+                value={startDate}
+                onChange={handleStartDateChange}
+                KeyboardButtonProps={{
+                  'aria-label': 'change date',
+                }}
+              />
+              <KeyboardDatePicker
+                className={classes.date}
+                disableToolbar
+                variant="inline"
+                format="MM/dd/yyyy"
+                margin="normal"
+                id="date-picker-inline"
+                label="Date picker inline"
+                value={endDate}
+                onChange={handleEndDateChange}
+                KeyboardButtonProps={{
+                  'aria-label': 'change date',
+                }}
+              />
+            </Grid>
+          </MuiPickersUtilsProvider>
+        </Paper>
       </Box>
       <Box className={classes.box} m={1} p={1}>
         <Box p={1}>
@@ -173,48 +192,6 @@ const Availability = (): JSX.Element => {
             control={<Checkbox checked={daysOfWeek.sunday} onChange={handleChange} name="sunday" color="primary" />}
             label="Sunday"
           />
-        </Paper>
-      </Box>
-
-      <Box className={classes.box} m={1} p={1}>
-        <Box p={1}>
-          <Typography className={classes.typo} component="h1" variant="h6">
-            Availability Timeline
-          </Typography>
-        </Box>
-        <Paper className={classes.paper} elevation={1}>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <Grid container>
-              <KeyboardDatePicker
-                className={classes.date}
-                disableToolbar
-                variant="inline"
-                format="MM/dd/yyyy"
-                margin="normal"
-                id="date-picker-inline"
-                label="Date picker inline"
-                value={startDate}
-                onChange={handleStartDateChange}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date',
-                }}
-              />
-              <KeyboardDatePicker
-                className={classes.date}
-                disableToolbar
-                variant="inline"
-                format="MM/dd/yyyy"
-                margin="normal"
-                id="date-picker-inline"
-                label="Date picker inline"
-                value={endDate}
-                onChange={handleEndDateChange}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date',
-                }}
-              />
-            </Grid>
-          </MuiPickersUtilsProvider>
         </Paper>
       </Box>
 

@@ -16,10 +16,10 @@ const availabilitySchema = new Schema({
     type: Date,
     default: Date,
   },
+  daysOfWeek: [{ type: String }],
   rate: {
     type: Number,
   },
-  daysOfWeek: [{ type: String }],
 });
 
 module.exports = Availability = mongoose.model(

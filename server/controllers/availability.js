@@ -35,7 +35,6 @@ exports.updateA = asyncHandler(async (req, res, next) => {
 
 exports.fetchAvailability = asyncHandler(async (req, res, next) => {
   const email_id = req.params.email;
-  console.log(req.params.email);
 
   const availabilityData = await Availability.findOne(
     { email: email_id },
@@ -51,5 +50,4 @@ exports.fetchAvailability = asyncHandler(async (req, res, next) => {
   } else {
     res.status(404).send("something went wrong");
   }
-  console.log(availabilityData);
 });
