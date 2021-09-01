@@ -29,7 +29,11 @@ exports.getAllConversations = asyncHandler(async (req, res, next) => {
       },
     },
   ]).exec((err, conversations) => {
-    for (var i = 0; i < conversations.length; i++) {
+    if (err) {
+      res.status(500).send("Internal server error");
+    }
+
+    for (let i = 0; i < conversations.length; i++) {
       const convo = conversations[i];
       convo.latestMessageText =
         convo.messages[convo.messages.length - 1].messageText;
@@ -56,7 +60,7 @@ exports.getAllMessagesForConvo = asyncHandler(async (req, res, next) => {
         res.json({
           status: true,
           status_code: 200,
-          conversations: messages,
+          conversation: messages,
           message: "Messages fetched successfully",
         });
       }
