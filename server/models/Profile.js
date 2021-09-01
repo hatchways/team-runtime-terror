@@ -37,7 +37,7 @@ const profileSchema = new Schema({
   birthDate: {
     type: Date,
   },
-   userType: {
+  userType: {
     type: String,
     required: true,
   },
