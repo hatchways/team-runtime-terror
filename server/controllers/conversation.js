@@ -28,20 +28,30 @@ exports.getAllConversations = asyncHandler(async (req, res, next) => {
         "messages.createdAt": 1,
       },
     },
-  ]).exec((err, conversations) => {
+  ]).exec(async (err, conversations) => {
     for (var i = 0; i < conversations.length; i++) {
       const convo = conversations[i];
       convo.latestMessageText =
         convo.messages[convo.messages.length - 1].messageText;
+
+      await User.find(
+        {
+          $or: [{ _id: convo.user1Id }, { _id: convo.user2Id }],
+        },
+        (err, users) => {
+          users.forEach((user) => {
+            if (user._id != req.user.id) {
+              convo.otherUser = user.username;
+              convo.otherUserId = user._id;
+            }
+          });
+        }
+      );
+
       conversations[i] = convo;
     }
 
-    res.json({
-      status: true,
-      status_code: 200,
-      conversations: conversations,
-      message: "Conversations fetched successfully",
-    });
+    res.send(conversations);
   });
 });
 
