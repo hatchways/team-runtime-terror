@@ -8,14 +8,16 @@ const connectDB = require("./db");
 const { join } = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-
+const fileUpload = require("express-fileupload");
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
 const requestRouter = require("./routes/request");
 const profileRouter = require("./routes/profile");
+const jwt = require("jsonwebtoken");
+const cookie = require("cookie");
 
 // Require all models
-var dataSchema = require("./models");
+const dataSchema = require("./models/index");
 
 const { json, urlencoded } = express;
 
@@ -38,8 +40,19 @@ app.use(function (req, res, next) {
   next();
 });
 
-io.on("connection", (socket) => {
-  console.log("connected");
+io.on("connection", async (socket) => {
+  const clientCookie = cookie.parse(socket.handshake.headers.cookie);
+
+  try {
+    const decodedData = jwt.verify(clientCookie.token, process.env.JWT_SECRET);
+    const userData = await dataSchema.User.findOne({
+      _id: decodedData.id,
+    });
+    console.log("\x1b[35m", `${userData.username} is online`);
+    console.log("connected".yellow.underline.bold);
+  } catch (err) {
+    console.log("Invalid token");
+  }
 });
 
 if (process.env.NODE_ENV === "development") {
@@ -50,15 +63,17 @@ app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(join(__dirname, "public")));
 
+app.use(fileUpload());
 app.use((req, res, next) => {
   req.io = io;
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
   next();
 });
 
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
 app.use("/requests", requestRouter);
-app.use("/profiles", profileRouter);
+app.use("/profile", profileRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/client/build")));

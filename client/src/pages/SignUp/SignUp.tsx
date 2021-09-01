@@ -8,10 +8,11 @@ import useStyles from './useStyles';
 import register from '../../helpers/APICalls/register';
 import SignUpForm from './SignUpForm/SignUpForm';
 import AuthHeader from '../../components/AuthHeader/AuthHeader';
-import AuthNavBar from '../../components/NavBar/AuthNavBar/AuthNavBar';
+import AuthNavBar from '../../components/Navbar/AuthNavBar/AuthNavBar';
 import { useAuth } from '../../context/useAuthContext';
 import { useSnackBar } from '../../context/useSnackbarContext';
 import { demoUserLogin } from '../../helpers/APICalls/login';
+import { createUserProfile } from '../../helpers/APICalls/profile';
 
 export default function Register(): JSX.Element {
   const classes = useStyles();
@@ -19,8 +20,8 @@ export default function Register(): JSX.Element {
   const { updateSnackBarMessage } = useSnackBar();
 
   const handleSubmit = (
-    { username, email, password }: { email: string; password: string; username: string },
-    { setSubmitting }: FormikHelpers<{ email: string; password: string; username: string }>,
+    { username, email, password, userType }: { email: string; password: string; username: string; userType: string },
+    { setSubmitting }: FormikHelpers<{ email: string; password: string; username: string; userType: string }>,
   ) => {
     register(username, email, password).then((data) => {
       if (data.error) {
@@ -28,7 +29,10 @@ export default function Register(): JSX.Element {
         setSubmitting(false);
         updateSnackBarMessage(data.error.message);
       } else if (data.success) {
-        updateLoginContext(data.success);
+        createUserProfile(data.success.user.id, userType, email).then((profileId) => {
+          data.success!.user['profileId'] = profileId;
+          updateLoginContext(data.success!);
+        });
       } else {
         // should not get here from backend but this catch is for an unknown issue
         console.error({ data });
@@ -43,13 +47,12 @@ export default function Register(): JSX.Element {
     const demoLoginData = {
       email: 'doglover@gmail.com',
       password: 'dogLover',
-      notifier: 'demoLogin'
+      notifier: 'demoLogin',
     };
     demoUserLogin(demoLoginData.email, demoLoginData.password, demoLoginData.notifier).then((data) => {
       if (data.success) {
         updateLoginContext(data.success);
-      }
-      else {
+      } else {
         updateSnackBarMessage('An unexpected error occurred. Please try again');
       }
     });
