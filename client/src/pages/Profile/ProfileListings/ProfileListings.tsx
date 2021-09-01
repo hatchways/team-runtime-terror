@@ -24,10 +24,10 @@ import Loading from '../../../components/Layout/Loading';
 const ProfileListings = () => {
   const classes = useStyles();
 
-  const [profileData, setProfileData] = useState<Profile[]>([]);
+  const [profilesData, setProfilesData] = useState<Profile[]>([]);
 
   const setProfiles = (profiles: Profile[]) => {
-    setProfileData(profiles);
+    setProfilesData(profiles);
   };
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const ProfileListings = () => {
 
   return (
     <>
-      {!profileData ? (
+      {!profilesData ? (
         <Loading />
       ) : (
         <Grid container className={classes.root}>
@@ -69,7 +69,7 @@ const ProfileListings = () => {
                   </Typography>
                   <Box display="flex" justifyContent="center" mt={3}>
                     <TextField
-                      label="Toronto, Ontario"
+                      label="Search by location"
                       margin="normal"
                       variant="outlined"
                       InputProps={{
@@ -84,7 +84,7 @@ const ProfileListings = () => {
                   </Box>
 
                   <Box display="flex" flexWrap="wrap" justifyContent="center" pt={5} className={classes.profileArea}>
-                    {profileData.map((profile) => {
+                    {profilesData.map((profile) => {
                       return (
                         <Card key={profile._id} className={classes.cardWrapper}>
                           <CardActionArea component={Link} to="/profile-details">
