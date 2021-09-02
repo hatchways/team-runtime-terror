@@ -4,10 +4,9 @@ import { loadStripe } from '@stripe/stripe-js';
 import PaymentForm from './PaymentForm';
 
 const publishableKey = process.env.REACT_APP_PUBLISHABLE_KEY;
-console.log(publishableKey);
 const secretKey = process.env.REACT_APP_SECRET_KEY;
 
-const stripeTestPromise = loadStripe(publishableKey as any);
+const stripeTestPromise = loadStripe(publishableKey as string);
 
 const Payment = (): JSX.Element => {
   return (

@@ -29,12 +29,10 @@ const Payment = (): JSX.Element => {
 
     if (!error) {
       setCardDetail(paymentMethod!.card as any);
-      console.log(paymentMethod!.card);
       try {
         const { id } = paymentMethod!;
         const response = await axios.post('http://localhost:3001/profile/payment', JSON.stringify({ id }));
         if (response.data) {
-          console.log('Successfully added');
           setSuccess(true);
         }
       } catch (error) {
@@ -42,7 +40,6 @@ const Payment = (): JSX.Element => {
       }
       setOpen(false);
     } else {
-      console.log(error.message);
       setError(`${error.message} Please try again!`);
       setOpen(true);
     }
