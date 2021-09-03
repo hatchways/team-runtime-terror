@@ -53,7 +53,7 @@ const ProfileListings = () => {
             PROFILE="/profile"
             MY_SITTER="/mySitter"
             BECOME_SITTER="/becomeSitter"
-            MESSAGE="/message"
+            MESSAGE="/messages"
             Logout="Log out"
             Profile="Profile"
             Mysitter="My Sitters"
