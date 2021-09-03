@@ -30,7 +30,7 @@ function App(): JSX.Element {
                 <Route exact path="/profiles">
                   <ProfileListings />
                 </Route>
-                <Route path="/profile-details">
+                <Route path="/profile-details/:id">
                   <ProfileDetails />
                 </Route>
                 <Route path="*">

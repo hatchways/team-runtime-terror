@@ -87,7 +87,7 @@ const ProfileListings = () => {
                     {profilesData.map((profile) => {
                       return (
                         <Card key={profile._id} className={classes.cardWrapper}>
-                          <CardActionArea component={Link} to="/profile-details">
+                          <CardActionArea component={Link} to={`/profile-details/${profile._id}`}>
                             <Avatar
                               className={classes.cardAvatar}
                               alt={`Avatar of ${profile.firstName}`}

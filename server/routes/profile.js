@@ -12,7 +12,7 @@ const {
 
 router.route("/create").post(createProfile);
 
-router.route("/search/:email").get(protect, searchProfiles);
+router.route("/search/:_id").get(protect, searchProfiles);
 
 router.route("/list").get(protect, listAllProfiles);
 

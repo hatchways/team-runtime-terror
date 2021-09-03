@@ -55,12 +55,12 @@ exports.createProfile = asyncHandler(async (req, res, next) => {
 // @access Private
 
 exports.searchProfiles = asyncHandler(async (req, res, next) => {
-  const profile_email = req.params.email;
+  const profile_id = req.params._id;
 
   let profile;
-  if (profile_email) {
+  if (profile_id) {
     profile = await Profile.find({
-      email: profile_email,
+      _id: profile_id,
     });
   }
 

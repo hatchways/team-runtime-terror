@@ -45,6 +45,10 @@ const profileSchema = new Schema({
     type: String,
     required: false,
   },
+  rate: {
+    type: String,
+    required: false,
+  },
   filePath: {
     type: String,
     required: false,

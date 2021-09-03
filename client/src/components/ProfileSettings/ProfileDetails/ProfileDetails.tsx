@@ -24,19 +24,26 @@ import { getProfileDetails } from '../../../helpers/APICalls/profile';
 import { useAuth } from '../../../context/useAuthContext';
 import Loading from '../../Layout/Loading';
 import { Profile } from '../../../interface/Profile';
+import { useParams } from 'react-router-dom';
+
+interface paramTypes {
+  id: string;
+}
 
 const ProfileDetails = (): JSX.Element => {
   const classes = useStyles();
 
   const { loggedInUser } = useAuth();
 
+  const profileId = useParams<paramTypes>();
+
   const [profile, setProfileData] = useState<Profile>();
 
   useEffect(() => {
-    getProfileDetails(loggedInUser!.profileId).then((profileData) => {
-      setProfileData(profileData.profiles[0]);
+    getProfileDetails(profileId?.id).then((profileData) => {
+      setProfileData(profileData);
     });
-  }, [loggedInUser]);
+  }, [profileId, loggedInUser]);
 
   return (
     <>
@@ -69,7 +76,7 @@ const ProfileDetails = (): JSX.Element => {
                         height="250"
                         image={profCover}
                       />
-                      <Avatar className={classes.cardAvatar} alt="Remy Sharp" src={profimg} />
+                      <Avatar className={classes.cardAvatar} alt="Remy Sharp" src={profile.filePath} />
                     </CardActionArea>
                     <CardContent className={classes.contentWrapper}>
                       <Typography align="center" variant="h4">
@@ -80,13 +87,13 @@ const ProfileDetails = (): JSX.Element => {
                       </Typography>
                       <Typography align="center" gutterBottom variant="body2">
                         <LocationOnIcon className={classes.locationIcon} color="secondary" fontSize="small" />
-                        {/* LOCATION GOES HERE */}
+                        {profile.address}
                       </Typography>
                       <Typography gutterBottom variant="h4">
                         About me
                       </Typography>
                       <Typography align="left" gutterBottom variant="subtitle1" component="h2">
-                        {/* ABOUT ME GOES HERE */}
+                        {profile.description}
                       </Typography>
                       <Box display="flex" p={2} flexDirection="row" flexBasis="1">
                         <Avatar className={classes.thumbImages} variant="square" alt="Remy Sharp" src={doggo} />
@@ -101,7 +108,7 @@ const ProfileDetails = (): JSX.Element => {
                 <Paper elevation={12} className={classes.availWrapper}>
                   <Box p={5}>
                     <Typography gutterBottom align="center" variant="h4">
-                      {/* RATE GOES HERE */}
+                      {profile.rate}
                     </Typography>
                     <Typography align="center">
                       <Rating name="read-only" readOnly />
