@@ -55,21 +55,22 @@ exports.createProfile = asyncHandler(async (req, res, next) => {
 // @access Private
 
 exports.searchProfiles = asyncHandler(async (req, res, next) => {
-  const profile_id = req.query._id;
+  const profile_email = req.params.email;
 
-  let profiles;
-  if (profile_id) {
-    profiles = await Profile.find({
-      _id: profile_id,
+  let profile;
+  if (profile_email) {
+    profile = await Profile.find({
+      email: profile_email,
     });
   }
 
-  if (!profiles) {
+  if (!profile) {
     res.status(404);
     throw new Error("No profiles found in search");
   }
 
-  res.status(200).json({ profiles: profiles });
+  const [result] = profile;
+  res.status(200).json(result);
 });
 
 // @route GET /profiles
@@ -77,9 +78,7 @@ exports.searchProfiles = asyncHandler(async (req, res, next) => {
 // @access Private
 
 exports.listAllProfiles = asyncHandler(async (req, res, next) => {
-  let profiles;
-
-  profiles = await Profile.find({});
+  const profiles = await Profile.find({});
 
   if (!profiles) {
     res.status(404);
@@ -94,34 +93,42 @@ exports.listAllProfiles = asyncHandler(async (req, res, next) => {
 // @access Private
 
 exports.updateProfile = asyncHandler(async (req, res, next) => {
-  const { firstName, lastName, description, email, phoneNumber } = req.query;
-  const profile_id = req.query._id;
+  const {
+    firstName,
+    lastName,
+    description,
+    email,
+    gender,
+    phoneNumber,
+    birthDate,
+    address /*TODO  PLAN TO ADD AVAILABILITY IN ANOTHER MODEL*/,
+    /* availability: { startDate, endDate, daysOfWeek }, */
+  } = req.body;
 
-  const profile = Profile.findOne({ _id: profile_id }, function (err) {
-    if (err) {
-      res.status(404).send("Request not found!!");
-    }
-  });
-
-  if (profile) {
-    await Profile.updateMany(
-      { _id: profile_id },
-      {
-        firstName: req.query.firstName,
-        lastName: req.query.lastName,
-        description: req.query.description,
-        email: req.query.email,
-        phoneNumber: req.query.phoneNumber,
-      },
-      function (err) {
-        if (err) {
-          res.status(501).send("Internal Server Error!");
-        }
-
-        res.status(200).send("Request updated successfully");
+  await Profile.updateOne(
+    { email: req.body.email },
+    {
+      firstName,
+      lastName,
+      description,
+      email,
+      gender,
+      phoneNumber,
+      address,
+      birthDate /*TODO */,
+      /* availability: {
+        startDate,
+        endDate,
+        daysOfWeek,
+    }, */
+    },
+    function (err) {
+      if (err) {
+        res.status(500).send("Internal Server Error!");
       }
-    );
-  }
+      res.status(200).send("Profile updated successfully");
+    }
+  );
 });
 
 exports.uploadImage =
@@ -175,3 +182,7 @@ exports.uploadImage =
       return res.status(500).send(err);
     }
   });
+
+exports.payment = asyncHandler(async (req, res, next) => {
+  res.send("id received successfully");
+});
