@@ -32,6 +32,7 @@ const Chat = () => {
       {conversations.length === 0 ? (
         <Loading />
       ) : (
+        // <Typography>No conversations! Start a conversation ....</Typography>
         <>
           {conversations.map((convo: any) => {
             return (

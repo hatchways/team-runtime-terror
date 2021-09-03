@@ -5,7 +5,8 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(2, 2, 2, 4),
-    flexGrow: 2,
+    width: '25%',
+    flexGrow: 0,
   },
   userPanel: {
     display: 'flex',

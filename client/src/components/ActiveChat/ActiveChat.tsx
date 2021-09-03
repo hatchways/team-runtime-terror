@@ -1,4 +1,4 @@
-import { Box } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import Header from './Header/Header';
 import InputBox from './InputBox/InputBox';
 import Messages from './Messages/Messages';
@@ -13,7 +13,11 @@ const ActiveChat = () => {
   return (
     <>
       {!conversations ? (
-        <Loading />
+        <Box mt={11} className={classes.root} justifyContent="center">
+          <Typography variant="h4" align="center">
+            Please click on a conversation to chat
+          </Typography>
+        </Box>
       ) : (
         <Box mt={11} className={classes.root}>
           <Header />
