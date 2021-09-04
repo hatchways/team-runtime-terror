@@ -14,6 +14,7 @@ import './App.css';
 import ProfileListings from './pages/Profile/ProfileListings/ProfileListings';
 import ProfileDetails from './components/ProfileSettings/ProfileDetails/ProfileDetails';
 import Message from './pages/Message/Message';
+import ManageBooking from './components/ProfileSettings/ManageBooking/ManageBooking';
 
 function App(): JSX.Element {
   return (
@@ -33,8 +34,11 @@ function App(): JSX.Element {
                   <Route exact path="/profiles">
                     <ProfileListings />
                   </Route>
-                  <Route exact path="/profile-details">
+                  <Route exact path="/profile-details/:id">
                     <ProfileDetails />
+                  </Route>
+                  <Route exact path="/manage-bookings">
+                    <ManageBooking />
                   </Route>
                   <Route exact path="/messages">
                     <Message />

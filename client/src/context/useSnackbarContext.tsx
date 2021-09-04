@@ -16,6 +16,7 @@ export const SnackBarProvider: FunctionComponent = ({ children }): JSX.Element =
   const [open, setOpen] = useState<boolean>(false);
 
   const updateSnackBarMessage = useCallback((message: string) => {
+    console.log(message);
     setMessage(message);
     setOpen(true);
   }, []);

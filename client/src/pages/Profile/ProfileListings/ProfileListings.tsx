@@ -51,7 +51,7 @@ const ProfileListings = () => {
           <Navbar
             LOGOUT="/logout"
             PROFILE="/profile"
-            MY_SITTER="/mySitter"
+            MY_SITTER="/manage-bookings"
             BECOME_SITTER="/becomeSitter"
             MESSAGE="/messages"
             Logout="Log out"

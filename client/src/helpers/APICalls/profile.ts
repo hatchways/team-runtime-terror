@@ -41,4 +41,18 @@ const createUserProfile = async (userId: string, userType: string, email: string
     }));
 };
 
-export { getAllProfiles, getProfileDetails, createUserProfile };
+const createPaymentIntent = async (amount: string) => {
+  const fetchOptions: FetchOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ amount }),
+    credentials: 'include',
+  };
+  return await fetch(`/profile/create-payment-intent`, fetchOptions)
+    .then((res) => res.json())
+    .catch(() => ({
+      error: { message: 'Unable to connect to server. Please try again' },
+    }));
+};
+
+export { getAllProfiles, getProfileDetails, createUserProfile, createPaymentIntent };

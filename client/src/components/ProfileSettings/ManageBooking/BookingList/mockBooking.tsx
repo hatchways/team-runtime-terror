@@ -2,7 +2,7 @@ const mockBookings = [
   [
     {
       id: 0,
-      status: 'ACCEPTED',
+      status: 'COMPLETED',
       ownerName: 'Angela',
       imageSrc: 'https://robohash.org/dadfadfs.email.png',
       date: '12 June 2020, 7-9 PM',
@@ -25,7 +25,7 @@ const mockBookings = [
     },
     {
       id: 3,
-      status: 'DECLINED',
+      status: 'COMPLETED',
       ownerName: 'Mark',
       imageSrc: 'https://robohash.org/adfad.png',
       date: '18 April 2021, 5-9 PM',

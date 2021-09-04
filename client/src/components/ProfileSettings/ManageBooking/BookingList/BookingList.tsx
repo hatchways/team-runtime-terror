@@ -40,7 +40,7 @@ const BookingList = (): JSX.Element => {
           </Grid>
         </Grid>
       </Paper>
-      <Paper className={classes.paper} elevation={4}>
+      <Paper className={classes.bookingWrapper} elevation={4}>
         <Typography gutterBottom variant="h6" className={classes.bookingText}>
           CURRENT BOOKINGS:
         </Typography>
