@@ -37,7 +37,9 @@ const useStyles = makeStyles((theme) => ({
   form: {
     width: '100%',
   },
-
+  cardInput: {
+    paddingLeft: '145px',
+  },
   photoLabel: {
     padding: theme.spacing(2),
     fontWeight: 700,
@@ -46,7 +48,6 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '4px',
   },
   photoInput: {
-    padding: theme.spacing(2),
     fontWeight: 700,
     color: 'red',
     border: '0.5px red solid',

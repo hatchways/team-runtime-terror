@@ -6,6 +6,9 @@ const AWS = require("aws-sdk");
 const multerS3 = require("multer-s3");
 const fs = require("fs");
 const path = require("path");
+const stripe = require("stripe")(
+  "sk_test_51FrLHPD6gDNbKjt9s09sTGnZ3sstFxDSkYUgTxBtKjhchVKeb0xva5YqNg4KEx2pzidZ9kTFHQE4MiOEElwg1D9000p88rLNyH"
+);
 
 AWS.config.update({
   accessKeyId: process.env.ACCESS_KEY_ID,
@@ -55,12 +58,12 @@ exports.createProfile = asyncHandler(async (req, res, next) => {
 // @access Private
 
 exports.searchProfiles = asyncHandler(async (req, res, next) => {
-  const profile_email = req.params.email;
+  const profile_id = req.params._id;
 
   let profile;
-  if (profile_email) {
+  if (profile_id) {
     profile = await Profile.find({
-      email: profile_email,
+      _id: profile_id,
     });
   }
 
@@ -86,6 +89,24 @@ exports.listAllProfiles = asyncHandler(async (req, res, next) => {
   }
 
   res.status(200).json({ profiles: profiles });
+});
+
+exports.createPaymentIntent = asyncHandler(async (req, res, next) => {
+  const body = req.body;
+
+  const options = {
+    amount: body.amount,
+    currency: "inr",
+    payment_method_types: ["card"],
+  };
+
+  try {
+    const paymentIntent = await stripe.paymentIntents.create(options);
+    console.log(paymentIntent);
+    res.json({ paymentIntent });
+  } catch (err) {
+    res.json(err);
+  }
 });
 
 // @route POST /profiles

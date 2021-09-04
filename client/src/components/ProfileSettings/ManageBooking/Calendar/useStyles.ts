@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: '2rem',
     textAlign: 'center',
     width: '35vw',
-    height: '55vh',
+    height: '60vh',
   },
 
   calendarClass: {

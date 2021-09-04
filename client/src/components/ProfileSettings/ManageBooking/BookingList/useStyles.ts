@@ -3,9 +3,17 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
-    maxWidth: 450,
+    width: 450,
     margin: '2rem',
     marginLeft: '0rem',
+  },
+  bookingWrapper: {
+    padding: theme.spacing(2),
+    maxWidth: 450,
+    height: '40vh',
+    margin: '2rem',
+    marginLeft: '0rem',
+    overflowY: 'scroll',
   },
   image: {
     width: 128,
@@ -23,18 +31,26 @@ const useStyles = makeStyles((theme) => ({
     height: '48px',
     border: '0.5px solid grey',
   },
+  userName1: {
+    display: 'inline',
+    marginLeft: '-70px',
+    fontWeight: 'bold',
+    marginTop: '20px',
+  },
   userName: {
     display: 'inline',
     marginLeft: '1.5rem',
+    fontWeight: 'bold',
+    marginTop: '20px',
   },
-
   status: {
     display: 'inline',
     marginRight: '1rem',
     color: 'grey',
-    marginTop: '2rem',
+    marginTop: '21px',
   },
   bookingText: {
+    marginTop: 20,
     fontWeight: 'bold',
   },
   internalGrid: {
@@ -72,6 +88,9 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: 'lightgrey',
       borderRadius: '5px',
     },
+  },
+  payButton: {
+    width: 40,
   },
 }));
 

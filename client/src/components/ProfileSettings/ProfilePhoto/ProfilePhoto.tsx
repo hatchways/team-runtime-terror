@@ -1,7 +1,7 @@
 import { useAuth } from '../../../context/useAuthContext';
 import { useState } from 'react';
 import useStyles from './useStyles';
-import { Button, Card, Typography, Avatar, CardActions, Paper, Input, FormLabel } from '@material-ui/core';
+import { Button, Card, Box, Typography, Avatar, CardActions, Paper, Input, FormLabel } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import formDataAPI from '../../../helpers/APICalls/formDataAPI';
 
@@ -33,17 +33,18 @@ const ProfilePhoto = () => {
   };
 
   return (
-    <Paper elevation={5} className={classes.photoPaper}>
+    // <Paper elevation={5} className={classes.photoPaper}>
+    <Box pt={0.5}>
       <Card className={classes.photoCard}>
-        <Typography variant="h5" className={classes.photoHeader}>
+        <Typography variant="h5" align="center" className={classes.photoHeader}>
           Profile Photo
         </Typography>
 
         <Avatar alt="Profile Image" src={avatarImage} className={classes.photoAvatar} variant="circle" />
-        <Typography variant="subtitle1" className={classes.photoText}>
+        <Typography variant="subtitle1" align="center" className={classes.photoText}>
           Be sure to use a photo that clearly shows your face
         </Typography>
-        <CardActions>
+        <CardActions className={classes.cardInput}>
           <form action="/" method="POST" className={classes.form} encType="multipart/form-data" onSubmit={handleSubmit}>
             {!isInputClicked && (
               <FormLabel htmlFor="imageUpload" className={classes.photoLabel}>
@@ -67,11 +68,12 @@ const ProfilePhoto = () => {
             )}
           </form>
         </CardActions>
-        <Typography variant="subtitle1" className={classes.photoText}>
+        <Typography align="center" variant="subtitle1" className={classes.photoText}>
           <DeleteIcon className={classes.deleteIcon} /> Delete photo
         </Typography>
       </Card>
-    </Paper>
+    </Box>
+    // </Paper>
   );
 };
 export default ProfilePhoto;

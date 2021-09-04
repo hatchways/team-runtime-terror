@@ -51,7 +51,7 @@ const ProfileListings = () => {
           <Navbar
             LOGOUT="/logout"
             PROFILE="/profile"
-            MY_SITTER="/mySitter"
+            MY_SITTER="/manage-bookings"
             BECOME_SITTER="/becomeSitter"
             MESSAGE="/messages"
             Logout="Log out"
@@ -87,7 +87,7 @@ const ProfileListings = () => {
                     {profilesData.map((profile) => {
                       return (
                         <Card key={profile._id} className={classes.cardWrapper}>
-                          <CardActionArea component={Link} to="/profile-details">
+                          <CardActionArea component={Link} to={`/profile-details/${profile._id}`}>
                             <Avatar
                               className={classes.cardAvatar}
                               alt={`Avatar of ${profile.firstName}`}

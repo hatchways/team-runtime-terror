@@ -10,13 +10,13 @@ const useStyles = makeStyles((theme) => ({
   menuWrapper: {
     height: 500,
     width: 200,
-    // margin: 60,
+    margin: 60,
   },
   dataWrapper: {
     height: 600,
-    width: 600,
-    // margin: 60,
-    // boxShadow: '1px 1px 1px 1px',
+    width: 800,
+    margin: 60,
+    boxShadow: '1px 1px 1px 1px',
     // backgroundColor: 'yellow',
   },
   menuNav: {

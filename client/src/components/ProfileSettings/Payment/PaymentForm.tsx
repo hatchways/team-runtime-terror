@@ -50,7 +50,8 @@ const Payment = (): JSX.Element => {
   };
 
   return (
-    <Paper elevation={5} className={classes.paymentPaper}>
+    <>
+      {/* <Paper elevation={5} className={classes.paymentPaper}> */}
       <Typography variant="h5" className={classes.paymentHeader}>
         Payment Methods
       </Typography>
@@ -112,7 +113,8 @@ const Payment = (): JSX.Element => {
           </DialogActions>
         </form>
       </Dialog>
-    </Paper>
+      {/* </Paper> */}
+    </>
   );
 };
 
